@@ -1,4 +1,5 @@
 ﻿using LiveSplit.Model;
+using LiveSplit.Localization;
 using LiveSplit.TimeFormatters;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace LiveSplit.UI.Components;
 [GlobalFontConsumer(GlobalFont.TimesFont | GlobalFont.TextFont)]
 public class SumOfBestComponent : IComponent
 {
+    private static string T(string source) => UiLocalizer.Translate(source, LanguageResolver.ResolveCurrentCultureLanguage());
+
     protected InfoTimeComponent InternalComponent { get; set; }
     public SumOfBestSettings Settings { get; set; }
     protected LiveSplitState CurrentState { get; set; }
@@ -32,11 +35,11 @@ public class SumOfBestComponent : IComponent
     public SumOfBestComponent(LiveSplitState state)
     {
         Formatter = new SplitTimeFormatter();
-        InternalComponent = new InfoTimeComponent("Sum of Best Segments", null, Formatter)
+        InternalComponent = new InfoTimeComponent(T("Sum of Best Segments"), null, Formatter)
         {
             AlternateNameText =
             [
-                "Sum of Best",
+                T("Sum of Best"),
                 "SoB"
             ]
         };
@@ -148,7 +151,7 @@ public class SumOfBestComponent : IComponent
 
     public float MinimumHeight => InternalComponent.MinimumHeight;
 
-    public string ComponentName => "Sum of Best";
+    public string ComponentName => T("Sum of Best");
 
     public Control GetSettingsControl(LayoutMode mode)
     {
